@@ -28,29 +28,10 @@ USER daemon
 ONBUILD ADD install.txt /home/daemon/steamcmd/install.txt
 ONBUILD RUN ./steamcmd.sh +runscript install.txt
 
-
-RUN ls -la /home/daemon/steamcmd
-
 RUN chown -R daemon:daemon /gmod-base
 
 RUN /home/daemon/steamcmd/steamcmd.sh +login anonymous +force_install_dir /gmod-base +app_update 4020 validate +quit
 
-# ----------------
-# Annoying lib fix
-# ----------------
-
-#RUN mkdir /gmod-libs
-#WORKDIR /gmod-libs
-#RUN wget http://launchpadlibrarian.net/195509222/libc6_2.15-0ubuntu10.10_i386.deb
-#RUN dpkg -x libc6_2.15-0ubuntu10.10_i386.deb .
-#RUN cp lib/i386-linux-gnu/* /gmod-base/bin/
-#WORKDIR /
-#RUN rm -rf /gmod-libs
-#RUN cp /steamcmd/linux32/libstdc++.so.6 /gmod-base/bin/
-
-#RUN mkdir /root/.steam
-#RUN mkdir /root/.steam/sdk32/
-#RUN cp /gmod-base/bin/libsteam.so /root/.steam/sdk32
 
 # ----------------------
 # Setup Volume and Union
